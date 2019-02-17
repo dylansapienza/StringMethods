@@ -2,17 +2,63 @@ class stringMethods {
    public String findChar (String text,int ind){
    
    //Write your Code here
-      
-      return " ";
+	  
+      System.out.println(text.charAt(ind));
+      return "" + text.charAt(ind) + "";
    }
    
    
-   public boolean userChecker (String newUser, String oldUser){
-   
-      //Write your Code here
-   
-      return false;
-   }
+   public boolean userChecker (String newUser, String oldUser) {
+	   
+	   //Check to make sure username contains a number
+	   int i;
+	   String num;
+	   for(i=1; i<=4; i++) {
+		   num = ""+i;
+		   if(newUser.contains(num)==true) {
+			   i=4;
+		   }
+	   }
+	   
+	   
+	   //Make sure the number does not start the string
+	   String str1 = "";
+	   for(i=0; i<=9; i++) {
+		   str1 =""+i;
+		   if(newUser.startsWith(str1)==true) {
+			   return false;
+			
+		   }
+		   else {
+			   //System.out.println("Success 2");
+		   }
+	   }
+	   
+	   //Check the special chars
+	   for(i=1; i<=3; i++) {
+		   switch(i) {
+			   case 1:
+				   str1 = "!";
+			   case 2:
+				   str1 = "@";
+			   case 3:
+				   str1 = "?";
+			   }
+			   if(newUser.contains(str1)==true) {
+				   return false;
+			   }
+		
+		   }
+	   
+	   //Check username does not match the old name
+	   if(newUser.contains(oldUser)==true) {
+		   return false;
+	   
+	   }
+	
+	   return true;
+	
+	}
    
    public boolean urlChecker (String url){
       
@@ -43,8 +89,11 @@ class stringMethods {
 }
 public class Stringfunc{
    public static void main(String[] args){
-      CharMethods M1=new CharMethods();
+      
+	   stringMethods M1=new stringMethods();
+
       String s="CS1111 is the best class that I have ever taken.";
+      M1.findChar(s,2);
       assert "none".equals(M1.findChar(s,100)) : "100 is larger than the length of the string";
       assert "t".equals(M1.findChar(s,10)) : "The character in the 10th place should be S";
       assert "1".equals(M1.findChar(s,2)) : "The character in the 3d place should be 1";
