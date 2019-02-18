@@ -39,10 +39,13 @@ class stringMethods {
 		   switch(i) {
 			   case 1:
 				   str1 = "!";
+				   break;
 			   case 2:
 				   str1 = "@";
+				   break;
 			   case 3:
 				   str1 = "?";
+				   break;
 			   }
 			   if(newUser.contains(str1)==true) {
 				   return false;
