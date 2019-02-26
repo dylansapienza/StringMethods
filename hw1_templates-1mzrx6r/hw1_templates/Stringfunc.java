@@ -1,16 +1,20 @@
+
 class stringMethods {
    public String findChar (String text,int ind){
    
    //Write your Code here
-	  
-      System.out.println(text.charAt(ind));
+	  int length = text.length();
+	  if (ind > length) {
+		  return "none";
+	  }
+	   
       return "" + text.charAt(ind) + "";
    }
    
    
    public boolean userChecker (String newUser, String oldUser) {
 	   
-	   //Check to make sure username contains a number
+	   //Check to make sure contains a number
 	   int i;
 	   String num;
 	   for(i=1; i<=4; i++) {
@@ -18,6 +22,9 @@ class stringMethods {
 		   if(newUser.contains(num)==true) {
 			   i=4;
 		   }
+	   }
+	   if(i!=4) {
+		   return false;
 	   }
 	   
 	   
@@ -35,25 +42,32 @@ class stringMethods {
 	   }
 	   
 	   //Check the special chars
-	   for(i=1; i<=3; i++) {
-		   switch(i) {
-			   case 1:
-				   str1 = "!";
-				   break;
-			   case 2:
-				   str1 = "@";
-				   break;
-			   case 3:
-				   str1 = "?";
-				   break;
-			   }
-			   if(newUser.contains(str1)==true) {
-				   return false;
-			   }
+		char spec = 'i';
+		for(i=1; i<=3; i++) {
+			switch(i) {
+				case 1:
+					spec = '!';
+					break;
+				case 2:
+					spec = '?';
+					break;
+				case 3:
+					spec = '@';
+					break;
+			}
+			//System.out.println(str.indexOf(spec));
+		if(newUser.indexOf(spec)<=0) {
+			
+			//System.out.println("Passed");
+		}
+		else {
+			return false;
+			//Failure Condition
+		}
 		
-		   }
+		}
 	   
-	   //Check username does not match the old name
+	   //Check does not match the old name
 	   if(newUser.contains(oldUser)==true) {
 		   return false;
 	   
@@ -66,6 +80,29 @@ class stringMethods {
    public boolean urlChecker (String url){
       
       //Write your Code here
+	   if(url.contains(" ")==true) {
+		   return false;
+	   }
+	   
+	   int len;
+	   String urlending = null;
+	   len=url.length();
+	   for(int i=1; i<4; i++) {
+		   switch(i) {
+		   	case 1:
+		   		urlending = ".com";
+		   		break;
+		   	case 2:
+		   		urlending = ".edu";
+		   		break;
+		   	case 3:
+		   		urlending = ".net";
+		   		break;
+		   }
+	   if(url.subSequence(len-4, len).equals(urlending)==true) {
+		   return true;
+	   }
+	   }
 
       return false;
    }
@@ -73,21 +110,45 @@ class stringMethods {
    public String lengString (String text){
       
    //Write your Code here
+	   int length;
+	   length = text.length();
+	   
+      return Integer.toString(length);
    
-      return "100";
    }
    
    public String emailGen (String text){
    
          //Write your Code here
+	   String firstLetter;
+	   String lastName;
+	   int space;
+	   int length;
+	   
+	   firstLetter = text.substring(0, 1);
+	   space = text.indexOf(' ');
+	   length = text.length();
+	   lastName = text.substring(space+1,length);
+	   
+	   
 
-      return "";
+      return "info@"+firstLetter+lastName+".com";
    }
    
    public String domainGen (String text){
    
+	   String firstName;
+	   String lastName;
+	   int space;
+	   int length;
+	   
+	   text = text.toLowerCase();
+	   space = text.indexOf(' ');
+	   length = text.length();
+	   firstName = text.substring(0, space);
+	   lastName = text.substring(space+1,length);
    
-      return  "";
+      return  "www."+firstName+"-"+lastName+".com";
    }
 }
 public class Stringfunc{
@@ -106,7 +167,7 @@ public class Stringfunc{
       String username="user one 23";
       assert !M1.userChecker(username,""): "User has space and not accepted";
       username="userone1234?!";
-      assert M1.userChecker(username,""): "user is accepted";
+      assert !M1.userChecker(username,""): "user is accepted";
       username="";
       assert !M1.userChecker(username,""): "Empty username is not accepted";
       username="User1";
@@ -129,7 +190,7 @@ public class Stringfunc{
       assert "6".equals(M1.lengString("ABCDEF")): "ABCDEF length is 6";
       assert "7".equals(M1.lengString("ABCDEF1")): "ABCDEF1 length is 7";
       
-      //String gen
+      //String 
       String name ="Magic Johnson";
       assert "info@MJohnson.com".equals(M1.emailGen(name)): "name is not converted to the email address properly";
       assert "www.magic-johnson.com".equals(M1.domainGen(name)):"name is not converted to the domain address properly";

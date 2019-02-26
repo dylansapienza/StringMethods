@@ -1,6 +1,121 @@
 class Combine implements Combinable {
 
   // YOUR CODE UNDER THIS COMMENT
+	public boolean validateChar(char ch) {
+		
+		if(ch == '2') {
+			return true;
+		}
+		if(ch =='4') {
+			return true;
+		}
+		else {
+			
+		return false;
+		
+		}
+	}
+
+	public boolean validateRow(String row) {
+		// TODO Auto-generated method stub
+		
+		if(row.length()!=3) {
+			return false;
+		}
+		if(row.contains("2")!=true) {
+			if(row.contains("4")!=true) {
+				if(row.contains("_")!=true) {
+					return false;
+				}
+			}
+		}
+		if(row.contains("6")==true) {
+			return false;
+		}
+
+		
+		return true;
+	
+	}
+
+	public String moveLeft(String row) {
+		if(validateRow(row)==false) {
+			return row;
+		}
+		
+		if(row.indexOf('_')<0) {
+			return row;
+		}
+		
+		int space;
+		space = row.indexOf('_');
+		row = row.substring(0,space) + row.substring(space+1);
+		
+		if(row.indexOf('_')<0) {
+			return row+"_";
+		}
+
+		else {
+			space = row.indexOf('_');
+			row = row.substring(0,space) + row.substring(space+1);
+		}
+		
+		
+		return row+"_"+"_";
+	}
+
+	public String combineLeft(String row) {
+		// TODO Auto-generated method stub
+		int index = 0;
+		int num = 0;
+		int flag = 11;
+		int num2;
+		char comb;
+		char comb2 = 0;
+		
+		if(validateRow(row)==false) {
+			return row;
+		}
+		
+		
+		if(row.charAt(index)==row.charAt(index+1)) {
+			if(row.substring(1,2).equals(row.substring(2,3))) {
+				
+				comb = row.charAt(0);
+				num = comb - '0';
+				num2 = num+num;
+				row = num2+row.substring(1,2)+"_";
+				return row;
+			}
+			
+			comb = row.charAt(0);
+			num = comb - '0';
+			num2 = num+num;
+			row = row.substring(1,2);
+			row = num2+"__";
+			
+			return row;
+		}
+		index = 1;
+		if(row.charAt(index)==row.charAt(index+1)) {
+			flag = 1;
+			
+		}
+		
+		
+		if(flag==1) {
+			comb = row.charAt(1);
+			num = comb - '0';
+			num2 = num+num;
+			row = row.substring(0,1);
+			row = row+=num2+"_";
+			
+		}
+		
+		
+		
+		return row;
+	}
   
 
   // The main is used to test your code
@@ -26,4 +141,6 @@ class Combine implements Combinable {
     System.out.println("All tests passed.  VICTORY!");
   }
 
-}    
+
+}
+
